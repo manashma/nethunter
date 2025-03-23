@@ -177,4 +177,4 @@ If you find this project helpful and want to support its development, consider m
 
 **Donate via PayPal:** [PayPal Donation Link](https://paypal.me/dorazombiieegetbook?country.x=IN&locale.x=en_GB)
 **Donate via Bitcoin:** bc1q9p4j857k49spf0tc97f32m3ukdy4g6n8mpqgs8
-thanks_dev: u/gh/dorazombiiee
+

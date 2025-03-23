@@ -28,9 +28,9 @@ NetHunter is a network vulnerability scanner designed to help identify potential
 
 ### Clone the Repository
 ```bash
-git clone https://github.com/yourusername/nethunter.git
+git clone https://github.com/manashma/nethunter.git
 ```
-Replace `yourusername` with your actual GitHub username.
+Replace `manashma` with your actual GitHub username.
 
 ### Install Ruby
 Ensure Ruby (version 2.5 or higher) is installed. Download it from [ruby-lang.org](https://www.ruby-lang.org/) or use a package manager:

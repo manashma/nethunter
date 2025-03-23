@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 # Description: Tests SSH service for weak or default credentials
+# Author: dorazombiiee
 
 require 'net/ssh'
 

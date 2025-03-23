@@ -1,7 +1,7 @@
 # NetHunter
 
 <p align="center">
-  <img src="/assets/logo.png" alt="NetHunter Logo" width="200"/>
+  <img src="/assets/logo.png" alt="NetHunter Logo" width="600"/>
 </p>
 
 

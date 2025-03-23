@@ -358,6 +358,290 @@
                 font-size: 2.5rem;
             }
         }
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+            z-index: 20;
+        }
+        
+        .bar {
+            height: 3px;
+            width: 100%;
+            background-color: var(--text-color);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+        
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+                position: absolute;
+                top: 1.5rem;
+                right: 1.5rem;
+            }
+            
+            nav ul {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                padding: 1rem 0;
+                text-align: center;
+            }
+            
+            nav.open ul {
+                display: flex;
+            }
+            
+            /* Animation for menu toggle */
+            .menu-toggle.open .bar:nth-child(1) {
+                transform: translateY(9px) rotate(45deg);
+            }
+            
+            .menu-toggle.open .bar:nth-child(2) {
+                opacity: 0;
+            }
+            
+            .menu-toggle.open .bar:nth-child(3) {
+                transform: translateY(-9px) rotate(-45deg);
+            }
+            
+            .header-content {
+                position: relative;
+            }
+}
+        @media (max-width: 1200px) {
+            .container {
+                max-width: 95%;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .feature-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            nav {
+                width: 100%;
+                margin-top: 1rem;
+            }
+            
+            nav ul {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            nav ul li {
+                margin: 0.5rem 0.75rem;
+            }
+            
+            .hero {
+                padding: 2.5rem 0;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            .btn {
+                padding: 0.6rem 1.2rem;
+                margin-bottom: 0.5rem;
+            }
+            
+            h2 {
+                font-size: 1.8rem;
+            }
+            
+            h3 {
+                font-size: 1.3rem;
+            }
+            
+            .feature-card {
+                padding: 1.2rem;
+            }
+            
+            table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .header-content {
+                padding: 0.5rem 0;
+            }
+            
+            .logo {
+                font-size: 1.6rem;
+            }
+            
+            nav ul li {
+                margin: 0.3rem 0.5rem;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hero p {
+                font-size: 0.9rem;
+            }
+            
+            .buttons {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 0.8rem;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 250px;
+                text-align: center;
+                margin: 0;
+            }
+            
+            pre {
+                padding: 0.75rem;
+                font-size: 0.8rem;
+            }
+            
+            .terminal-window {
+                padding: 0.5rem;
+            }
+            
+            .terminal-body {
+                font-size: 0.8rem;
+            }
+            
+            section.section {
+                margin-bottom: 2rem;
+            }
+            
+            .scroll-top {
+                bottom: 1rem;
+                right: 1rem;
+                width: 2.5rem;
+                height: 2.5rem;
+            }
+        }
+        
+        /* Improve code display on mobile */
+        @media (max-width: 480px) {
+            pre code {
+                font-size: 0.8rem;
+            }
+            
+            table th, 
+            table td {
+                padding: 0.5rem;
+                font-size: 0.9rem;
+            }
+            
+            .terminal-body {
+                font-size: 0.75rem;
+            }
+            
+            footer {
+                padding: 1.5rem 0;
+                font-size: 0.9rem;
+            }
+        }
+        
+        /* Improve touch targets on mobile */
+        @media (hover: none) and (pointer: coarse) {
+            nav ul li a,
+            .btn {
+                padding: 0.8rem 1.2rem;
+            }
+            
+            nav ul li {
+                margin: 0.5rem 0.8rem;
+            }
+            
+            .feature-card {
+                min-height: 150px;
+            }
+        }
+        
+        /* Fix table display on small screens */
+        @media (max-width: 768px) {
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+            
+            table thead tr {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+            
+            table tr {
+                border: 1px solid var(--border-color);
+                margin-bottom: 1rem;
+            }
+            
+            table td {
+                border: none;
+                border-bottom: 1px solid var(--border-color);
+                position: relative;
+                padding-left: 50%;
+                text-align: right;
+            }
+            
+            table td:before {
+                position: absolute;
+                top: 12px;
+                left: 12px;
+                width: 45%;
+                padding-right: 10px;
+                white-space: nowrap;
+                text-align: left;
+                font-weight: bold;
+                content: attr(data-label);
+            }
+            
+            /* Hide empty cells */
+            table td:empty {
+                display: none;
+            }
+        }
+        
+        /* Improve code display on all screen sizes */
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        
+        /* Enhance focus states for accessibility */
+        a:focus, button:focus, input:focus, .btn:focus {
+            outline: 2px solid var(--accent-color);
+            outline-offset: 2px;
+}
     </style>
 </head>
 <body>
@@ -372,6 +656,11 @@
                     <li><a href="#examples">Examples</a></li>
                     <li><a href="#payloads">Payloads</a></li>
                 </ul>
+                <div class="menu-toggle" id="menuToggle">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
             </nav>
         </div>
     </header>
@@ -533,72 +822,72 @@ Resolving deltas: 100% (65/65), done.</span>
                 </thead>
                 <tbody>
                     <tr>
-                        <td><code>-t, --target TARGET</code></td>
-                        <td>Specify a single target IP or hostname (e.g., 192.168.1.1).</td>
+                        <td data-label="Option"><code>-t, --target TARGET</code></td>
+                        <td data-label="Description>Specify a single target IP or hostname (e.g., 192.168.1.1).</td>
                     </tr>
                     <tr>
-                        <td><code>-r, --range IP_RANGE</code></td>
-                        <td>Scan an IP range (e.g., 192.168.1.1-192.168.1.254 or 192.168.1.0/24).</td>
+                        <td data-label="Option"><code>-r, --range IP_RANGE</code></td>
+                        <td data-label="Description>Scan an IP range (e.g., 192.168.1.1-192.168.1.254 or 192.168.1.0/24).</td>
                     </tr>
                     <tr>
-                        <td><code>-p, --ports PORT_RANGE</code></td>
-                        <td>Define ports to scan (e.g., 1-100 or 80,443,8080). Default ports used if omitted.</td>
+                        <td data-label="Option"><code>-p, --ports PORT_RANGE</code></td>
+                        <td data-label="Description>Define ports to scan (e.g., 1-100 or 80,443,8080). Default ports used if omitted.</td>
                     </tr>
                     <tr>
-                        <td><code>--payload PAYLOAD_NAME</code></td>
-                        <td>Run a custom payload from <code>payloads/</code> (e.g., <code>http_vulnerability_scanner</code>).</td>
+                        <td data-label="Option"><code>--payload PAYLOAD_NAME</code></td>
+                        <td data-label="Description>Run a custom payload from <code>payloads/</code> (e.g., <code>http_vulnerability_scanner</code>).</td>
                     </tr>
                     <tr>
-                        <td><code>-o, --output FILENAME</code></td>
-                        <td>Save results to a file in <code>output/</code> (e.g., <code>scan.json</code>).</td>
+                        <td data-label="Option"><code>-o, --output FILENAME</code></td>
+                        <td data-label="Description>Save results to a file in <code>output/</code> (e.g., <code>scan.json</code>).</td>
                     </tr>
                     <tr>
-                        <td><code>-v, --verbose</code></td>
-                        <td>Enable detailed output during scanning.</td>
+                        <td data-label="Option"><code>-v, --verbose</code></td>
+                        <td data-label="Description>Enable detailed output during scanning.</td>
                     </tr>
                     <tr>
-                        <td><code>--exploit EXPLOIT_NAME</code></td>
-                        <td>Execute a specific exploit from <code>exploits/</code>.</td>
+                        <td data-label="Option"><code>--exploit EXPLOIT_NAME</code></td>
+                        <td data-label="Description>Execute a specific exploit from <code>exploits/</code>.</td>
                     </tr>
                     <tr>
-                        <td><code>--list-payloads</code></td>
-                        <td>Display all available payloads in <code>payloads/</code>.</td>
+                        <td data-label="Option"><code>--list-payloads</code></td>
+                        <td data-label="Description>Display all available payloads in <code>payloads/</code>.</td>
                     </tr>
                     <tr>
-                        <td><code>--list-exploits</code></td>
-                        <td>Display all available exploits in <code>exploits/</code>.</td>
+                        <td data-label="Option"><code>--list-exploits</code></td>
+                        <td data-label="Description>Display all available exploits in <code>exploits/</code>.</td>
                     </tr>
                     <tr>
-                        <td><code>--pentest</code></td>
-                        <td>Run a direct penetration test using the specified payload.</td>
+                        <td data-label="Option"><code>--pentest</code></td>
+                        <td data-label="Description>Run a direct penetration test using the specified payload.</td>
                     </tr>
                     <tr>
-                        <td><code>--timeout SECONDS</code></td>
-                        <td>Set the scan timeout in seconds (overrides <code>config.json</code>).</td>
+                        <td data-label="Option"><code>--timeout SECONDS</code></td>
+                        <td data-label="Description>Set the scan timeout in seconds (overrides <code>config.json</code>).</td>
                     </tr>
                     <tr>
-                        <td><code>--threads NUM</code></td>
-                        <td>Set the number of concurrent threads (overrides <code>config.json</code>).</td>
+                        <td data-label="Option"><code>--threads NUM</code></td>
+                        <td data-label="Description>Set the number of concurrent threads (overrides <code>config.json</code>).</td>
                     </tr>
                     <tr>
-                        <td><code>--aggressive</code></td>
-                        <td>Enable aggressive scanning (service and version detection).</td>
+                        <td data-label="Option"><code>--aggressive</code></td>
+                        <td data-label="Description>Enable aggressive scanning (service and version detection).</td>
                     </tr>
                     <tr>
-                        <td><code>--service-scan</code></td>
-                        <td>Perform service detection on open ports.</td>
+                        <td data-label="Option"><code>--service-scan</code></td>
+                        <td data-label="Description>Perform service detection on open ports.</td>
                     </tr>
                     <tr>
-                        <td><code>--vuln-scan</code></td>
-                        <td>Scan for common vulnerabilities on detected services.</td>
+                        <td data-label="Option"><code>--vuln-scan</code></td>
+                        <td data-label="Description>Scan for common vulnerabilities on detected services.</td>
                     </tr>
                     <tr>
-                        <td><code>-h, --help</code></td>
-                        <td>Show the help message.</td>
+                        <td data-label="Option"><code>-h, --help</code></td>
+                        <td data-label="Description>Show the help message.</td>
                     </tr>
                     <tr>
-                        <td><code>--version</code></td>
-                        <td>Display the NetHunter version (1.1.0).</td>
+                        <td data-label="Option"><code>--version</code></td>
+                        <td data-label="Description>Display the NetHunter version (1.1.0).</td>
                     </tr>
                 </tbody>
             </table>
@@ -863,20 +1152,39 @@ end</code></pre>
     <a href="#" class="scroll-top" id="scrollTop">↑</a>
     
     <script>
-        // Scroll to top button
-        const scrollTopBtn = document.getElementById('scrollTop');
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('menuToggle');
+            const nav = document.querySelector('nav');
+            const scrollTopBtn = document.getElementById('scrollTop');
         
-        window.addEventListener('scroll', function() {
-            if (window.pageYOffset > 300) {
-                scrollTopBtn.classList.add('show');
-            } else {
-                scrollTopBtn.classList.remove('show');
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    scrollTopBtn.classList.add('show');
+                } else {
+                    scrollTopBtn.classList.remove('show');
+                }
+            });
+            
+            scrollTopBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+            
+            if (menuToggle) {
+                menuToggle.addEventListener('click', function() {
+                    menuToggle.classList.toggle('open');
+                    nav.classList.toggle('open');
+                });
+                
+                // Close menu when a link is clicked
+                const navLinks = document.querySelectorAll('nav ul li a');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        menuToggle.classList.remove('open');
+                        nav.classList.remove('open');
+                    });
+                });
             }
-        });
-        
-        scrollTopBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     </script>
 </body>

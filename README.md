@@ -1,5 +1,10 @@
 # NetHunter
 
+<p align="center">
+  <img src="/assets/logo" alt="NetHunter Logo" width="200"/>
+</p>
+
+
 NetHunter is a network vulnerability scanner designed to help identify potential security issues in target systems. Built in Ruby, it offers a flexible and extensible platform for port scanning, service detection, vulnerability assessment, and executing custom payloads and exploits. Whether you're a security professional, penetration tester, or network administrator, NetHunter provides the tools you need to assess and secure networks effectively.
 
 ## Table of Contents

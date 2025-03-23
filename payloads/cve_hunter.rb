@@ -1,3 +1,7 @@
+#!/usr/bin/env ruby
+
+# Description: Enhanced CVE detection payload that identifies potential vulnerabilities based on service banners and version information
+# Author: dorazombiiee
 require 'json'
 require 'net/http'
 require 'uri'

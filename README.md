@@ -165,6 +165,7 @@ NetHunter version 1.1.0 includes these pre-built payloads:
 - **http_vulnerability_scanner.rb**: Scans for common HTTP vulnerabilities (XSS, SQLi, open directories).
 - **service_enumeration.rb**: Performs advanced service enumeration and fingerprinting.
 - **ssh_weak_credentials.rb**: Tests SSH for weak or default credentials.
+- - **dos_vulnerability_checker**: Checks for common DoS vulnerabilities and identifies if systems are susceptible to various DoS attack types.
 
 List all payloads with:
 ```bash

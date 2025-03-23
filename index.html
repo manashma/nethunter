@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NetHunter | Network Vulnerability Scanner</title>
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --text-color: #e6edf3;
+            --accent-color: #58a6ff;
+            --secondary-bg: #161b22;
+            --border-color: #30363d;
+            --code-bg: #1f2937;
+            --success-color: #3fb950;
+            --warning-color: #d29922;
+            --danger-color: #f85149;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: var(--secondary-bg);
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo span {
+            color: var(--text-color);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--accent-color);
+        }
+        
+        .hero {
+            background-color: var(--secondary-bg);
+            padding: 4rem 0;
+            text-align: center;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, var(--accent-color), var(--success-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem auto;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+            margin: 0 0.5rem;
+        }
+        
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+        }
+        
+        main {
+            margin: 2rem 0;
+        }
+        
+        .section {
+            margin-bottom: 3rem;
+        }
+        
+        h2 {
+            font-size: 2rem;
+            color: var(--accent-color);
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+            margin: 1.5rem 0 1rem 0;
+            color: var(--success-color);
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        ul, ol {
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+        }
+        
+        code {
+            font-family: 'Consolas', 'Monaco', monospace;
+            background-color: var(--code-bg);
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-size: 0.9rem;
+        }
+        
+        pre {
+            background-color: var(--code-bg);
+            border-radius: 5px;
+            padding: 1rem;
+            overflow-x: auto;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border-color);
+        }
+        
+        pre code {
+            background-color: transparent;
+            padding: 0;
+            border-radius: 0;
+            font-size: 0.95rem;
+            color: var(--text-color);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border-color);
+        }
+        
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        th {
+            background-color: var(--secondary-bg);
+        }
+        
+        tr:hover {
+            background-color: rgba(86, 166, 255, 0.05);
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .feature-card {
+            background-color: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            padding: 1.5rem;
+            transition: transform 0.2s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .feature-card h3 {
+            color: var(--accent-color);
+            margin-top: 0;
+        }
+        
+        footer {
+            background-color: var(--secondary-bg);
+            padding: 2rem 0;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+        }
+        
+        .scroll-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            width: 3rem;
+            height: 3rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s;
+            text-decoration: none;
+        }
+        
+        .scroll-top.show {
+            opacity: 1;
+        }
+        
+        .terminal-window {
+            background-color: #0f0f0f;
+            border-radius: 6px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            font-family: 'Consolas', 'Monaco', monospace;
+        }
+        
+        .terminal-header {
+            display: flex;
+            margin-bottom: 0.5rem;
+        }
+        
+        .terminal-button {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 6px;
+        }
+        
+        .terminal-close {
+            background-color: #ff5f56;
+        }
+        
+        .terminal-minimize {
+            background-color: #ffbd2e;
+        }
+        
+        .terminal-maximize {
+            background-color: #27c93f;
+        }
+        
+        .terminal-body {
+            color: #ddd;
+            line-height: 1.3;
+            white-space: pre-wrap;
+        }
+        
+        .prompt {
+            color: var(--success-color);
+            font-weight: bold;
+        }
+        
+        .command {
+            color: #fff;
+        }
+        
+        .output {
+            color: #aaa;
+        }
+        
+        .highlight {
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+        
+        .danger {
+            color: var(--danger-color);
+        }
+        
+        .success {
+            color: var(--success-color);
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+                flex-wrap: wrap;
+            }
+            
+            nav ul li {
+                margin: 0.5rem 1rem 0.5rem 0;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <a href="#" class="logo">Net<span>Hunter</span></a>
+            <nav>
+                <ul>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#installation">Installation</a></li>
+                    <li><a href="#usage">Usage</a></li>
+                    <li><a href="#examples">Examples</a></li>
+                    <li><a href="#payloads">Payloads</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <div class="container">
+            <h1>NetHunter</h1>
+            <p>A powerful network vulnerability scanner built in Ruby. Identify security issues, scan ports, detect services, and execute custom payloads to assess and secure your networks effectively.</p>
+            <div class="buttons">
+                <a href="#installation" class="btn">Get Started</a>
+                <a href="https://github.com/manashma/nethunter" class="btn btn-outline">GitHub</a>
+            </div>
+        </div>
+    </section>
+    
+    <main class="container">
+        <section id="features" class="section">
+            <h2>Features</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>Port Scanning</h3>
+                    <p>Scan individual IPs, IP ranges, or CIDR notations with customizable port lists to identify open services and potential entry points.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Service Detection</h3>
+                    <p>Identify services running on open ports with banner grabbing and precise fingerprinting techniques.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Vulnerability Scanning</h3>
+                    <p>Detect common vulnerabilities in services like HTTP, SSH, FTP, and SMB with built-in payloads and analysis tools.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Custom Payloads</h3>
+                    <p>Extend functionality with user-defined Ruby scripts to create specialized tests and exploits for your environment.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Multi-Threaded Performance</h3>
+                    <p>Speed up scans with concurrent thread support, enabling efficient scanning of large networks.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Detailed Reporting</h3>
+                    <p>Generate comprehensive JSON reports for analysis, documentation, and sharing findings with stakeholders.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="installation" class="section">
+            <h2>Installation</h2>
+            
+            <h3>Clone the Repository</h3>
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-button terminal-close"></div>
+                    <div class="terminal-button terminal-minimize"></div>
+                    <div class="terminal-button terminal-maximize"></div>
+                </div>
+                <div class="terminal-body">
+<span class="prompt">user@kali:~$</span> <span class="command">git clone https://github.com/yourusername/nethunter.git</span>
+<span class="output">Cloning into 'nethunter'...
+remote: Enumerating objects: 157, done.
+remote: Counting objects: 100% (157/157), done.
+remote: Compressing objects: 100% (92/92), done.
+remote: Total 157 (delta 65), reused 157 (delta 65), pack-reused 0
+Receiving objects: 100% (157/157), 52.63 KiB | 2.63 MiB/s, done.
+Resolving deltas: 100% (65/65), done.</span>
+<span class="prompt">user@kali:~$</span> <span class="command">cd nethunter</span>
+                </div>
+            </div>
+            
+            <h3>Install Ruby</h3>
+            <p>Ensure Ruby (version 2.5 or higher) is installed. Download it from <a href="https://www.ruby-lang.org/" style="color: var(--accent-color);">ruby-lang.org</a> or use a package manager:</p>
+            
+            <h4>Ubuntu/Debian:</h4>
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-button terminal-close"></div>
+                    <div class="terminal-button terminal-minimize"></div>
+                    <div class="terminal-button terminal-maximize"></div>
+                </div>
+                <div class="terminal-body">
+<span class="prompt">user@kali:~$</span> <span class="command">sudo apt install ruby</span>
+                </div>
+            </div>
+            
+            <h4>macOS:</h4>
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-button terminal-close"></div>
+                    <div class="terminal-button terminal-minimize"></div>
+                    <div class="terminal-button terminal-maximize"></div>
+                </div>
+                <div class="terminal-body">
+<span class="prompt">user@mac:~$</span> <span class="command">brew install ruby</span>
+                </div>
+            </div>
+            
+            <h4>Windows:</h4>
+            <p>Use the <a href="https://rubyinstaller.org/" style="color: var(--accent-color);">RubyInstaller</a>.</p>
+            
+            <p>Verify the installation:</p>
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-button terminal-close"></div>
+                    <div class="terminal-button terminal-minimize"></div>
+                    <div class="terminal-button terminal-maximize"></div>
+                </div>
+                <div class="terminal-body">
+<span class="prompt">user@kali:~$</span> <span class="command">ruby -v</span>
+<span class="output">ruby 3.1.2p20 (2022-04-12 revision 4491bb740a) [x86_64-linux]</span>
+                </div>
+            </div>
+            
+            <h3>Install Required Gems</h3>
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-button terminal-close"></div>
+                    <div class="terminal-button terminal-minimize"></div>
+                    <div class="terminal-button terminal-maximize"></div>
+                </div>
+                <div class="terminal-body">
+<span class="prompt">user@kali:~/nethunter$</span> <span class="command">gem install optparse json socket net-http uri fileutils colorize time timeout concurrent</span>
+                </div>
+            </div>
+            
+            <h3>Set Up Directories</h3>
+            <p>The tool automatically creates the following directories if they don't exist:</p>
+            <ul>
+                <li><code>payloads/</code>: For custom payload scripts.</li>
+                <li><code>exploits/</code>: For custom exploit scripts.</li>
+                <li><code>output/</code>: For saving scan results.</li>
+            </ul>
+            
+            <h3>Configuration</h3>
+            <p>On the first run, NetHunter generates a <code>config.json</code> file with default settings (e.g., scan timeout, default ports, thread count). Edit this file to customize behavior as needed.</p>
+        </section>
+        
+        <section id="usage" class="section">
+            <h2>Usage</h2>
+            
+            <p>Run NetHunter with the following command:</p>
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-button terminal-close"></div>
+                    <div class="terminal-button terminal-minimize"></div>
+                    <div class="terminal-button terminal-maximize"></div>
+                </div>
+                <div class="terminal-body">
+<span class="prompt">user@kali:~/nethunter$</span> <span class="command">ruby nethunter.rb [options]</span>
+                </div>
+            </div>
+            
+            <h3>Command-Line Options</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Option</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>-t, --target TARGET</code></td>
+                        <td>Specify a single target IP or hostname (e.g., 192.168.1.1).</td>
+                    </tr>
+                    <tr>
+                        <td><code>-r, --range IP_RANGE</code></td>
+                        <td>Scan an IP range (e.g., 192.168.1.1-192.168.1.254 or 192.168.1.0/24).</td>
+                    </tr>
+                    <tr>
+                        <td><code>-p, --ports PORT_RANGE</code></td>
+                        <td>Define ports to scan (e.g., 1-100 or 80,443,8080). Default ports used if omitted.</td>
+                    </tr>
+                    <tr>
+                        <td><code>--payload PAYLOAD_NAME</code></td>
+                        <td>Run a custom payload from <code>payloads/</code> (e.g., <code>http_vulnerability_scanner</code>).</td>
+                    </tr>
+                    <tr>
+                        <td><code>-o, --output FILENAME</code></td>
+                        <td>Save results to a file in <code>output/</code> (e.g., <code>scan.json</code>).</td>
+                    </tr>
+                    <tr>
+                        <td><code>-v, --verbose</code></td>
+                        <td>Enable detailed output during scanning.</td>
+                    </tr>
+                    <tr>
+                        <td><code>--exploit EXPLOIT_NAME</code></td>
+                        <td>Execute a specific exploit from <code>exploits/</code>.</td>
+                    </tr>
+                    <tr>
+                        <td><code>--list-payloads</code></td>
+                        <td>Display all available payloads in <code>payloads/</code>.</td>
+                    </tr>
+                    <tr>
+                        <td><code>--list-exploits</code></td>
+                        <td>Display all available exploits in <code>exploits/</code>.</td>
+                    </tr>
+                    <tr>
+                        <td><code>--pentest</code></td>
+                        <td>Run a direct penetration test using the specified payload.</td>
+                    </tr>
+                    <tr>
+                        <td><code>--timeout SECONDS</code></td>
+                        <td>Set the scan timeout in seconds (overrides <code>config.json</code>).</td>
+                    </tr>
+                    <tr>
+                        <td><code>--threads NUM</code></td>
+                        <td>Set the number of concurrent threads (overrides <code>config.json</code>).</td>
+                    </tr>
+                    <tr>
+                        <td><code>--aggressive</code></td>
+                        <td>Enable aggressive scanning (service and version detection).</td>
+                    </tr>
+                    <tr>
+                        <td><code>--service-scan</code></td>
+                        <td>Perform service detection on open ports.</td>
+                    </tr>
+                    <tr>
+                        <td><code>--vuln-scan</code></td>
+                        <td>Scan for common vulnerabilities on detected services.</td>
+                    </tr>
+                    <tr>
+                        <td><code>-h, --help</code></td>
+                        <td>Show the help message.</td>
+                    </tr>
+                    <tr>
+                        <td><code>--version</code></td>
+                        <td>Display the NetHunter version (1.1.0).</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section id="examples" class="section">
+            <h2>Examples</h2>
+            
+            <h3>Basic Port Scan</h3>
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-button terminal-close"></div>
+                    <div class="terminal-button terminal-minimize"></div>
+                    <div class="terminal-button terminal-maximize"></div>
+                </div>
+                <div class="terminal-body">
+<span class="prompt">user@kali:~/nethunter$</span> <span class="command">ruby nethunter.rb -t 192.168.1.1</span>
+<span class="output">[*] NetHunter v1.1.0 starting...
+[*] Target: 192.168.1.1
+[*] Scanning default ports (21,22,23,25,53,80,110,135,139,143,443,445,993,995,1723,3306,3389,5900,8080)
+[+] Open port detected: <span class="highlight">22 (SSH)</span>
+[+] Open port detected: <span class="highlight">80 (HTTP)</span>
+[+] Open port detected: <span class="highlight">443 (HTTPS)</span>
+[*] Scan completed in 3.54 seconds
+[*] 3 open ports found</span>
+                </div>
+            </div>
+            
+            <h3>Scan an IP Range with Custom Ports and Verbose Output</h3>
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-button terminal-close"></div>
+                    <div class="terminal-button terminal-minimize"></div>
+                    <div class="terminal-button terminal-maximize"></div>
+                </div>
+                <div class="terminal-body">
+<span class="prompt">user@kali:~/nethunter$</span> <span class="command">ruby nethunter.rb -r 192.168.1.1-192.168.1.10 -p 80,443,8080 -v</span>
+<span class="output">[*] NetHunter v1.1.0 starting...
+[*] Verbose mode enabled
+[*] Target range: 192.168.1.1 - 192.168.1.10
+[*] Ports to scan: 80, 443, 8080
+[*] Using 10 threads for scanning
+[*] Starting scan on 192.168.1.1...
+[+] 192.168.1.1:80 - <span class="highlight">Open</span>
+[+] 192.168.1.1:443 - <span class="highlight">Open</span>
+[-] 192.168.1.1:8080 - <span class="danger">Closed</span>
+[*] Starting scan on 192.168.1.2...
+...
+[*] Scan completed in 12.75 seconds
+[*] Results summary:
+[*] 192.168.1.1 - Open ports: 80, 443
+[*] 192.168.1.3 - Open ports: 80
+[*] 192.168.1.5 - Open ports: 80, 8080
+[*] 192.168.1.9 - Open ports: 443
+[*] 4 hosts with open ports found</span>
+                </div>
+            </div>
+            
+            <h3>Run a Vulnerability Scan and Save Output</h3>
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-button terminal-close"></div>
+                    <div class="terminal-button terminal-minimize"></div>
+                    <div class="terminal-button terminal-maximize"></div>
+                </div>
+                <div class="terminal-body">
+<span class="prompt">user@kali:~/nethunter$</span> <span class="command">ruby nethunter.rb -t 192.168.1.1 --vuln-scan -o scan_results.json</span>
+<span class="output">[*] NetHunter v1.1.0 starting...
+[*] Target: 192.168.1.1
+[*] Vulnerability scanning enabled
+[*] Scanning default ports (21,22,23,25,53,80,110,135,139,143,443,445,993,995,1723,3306,3389,5900,8080)
+[+] Open port detected: 22 (SSH)
+[+] Open port detected: 80 (HTTP)
+[+] Open port detected: 443 (HTTPS)
+[*] Running vulnerability scans on open ports...
+[*] Scanning SSH (port 22)...
+[*] Banner: SSH-2.0-OpenSSH_8.2p1
+[+] Service detected: OpenSSH 8.2p1
+[-] No known vulnerabilities detected for OpenSSH 8.2p1
+[*] Scanning HTTP (port 80)...
+[+] Server: Apache/2.4.41
+[+] Detected open directories at /admin/ - <span class="danger">SECURITY RISK</span>
+[!] Found potential <span class="danger">XSS vulnerability</span> in search parameter
+[*] Scanning HTTPS (port 443)...
+[+] Server: Apache/2.4.41
+[!] <span class="danger">SSL Certificate is self-signed</span> - potential trust issues
+[*] Scan completed in 8.76 seconds
+[*] 3 open ports found
+[*] 3 vulnerabilities detected
+[*] Saving results to output/scan_results.json</span>
+                </div>
+            </div>
+            
+            <h3>List Available Payloads</h3>
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-button terminal-close"></div>
+                    <div class="terminal-button terminal-minimize"></div>
+                    <div class="terminal-button terminal-maximize"></div>
+                </div>
+                <div class="terminal-body">
+<span class="prompt">user@kali:~/nethunter$</span> <span class="command">ruby nethunter.rb --list-payloads</span>
+<span class="output">[*] Available payloads:
+[*] 1. http_vulnerability_scanner - Scans for common HTTP vulnerabilities (XSS, SQLi, open directories)
+[*] 2. service_enumeration - Performs advanced service enumeration and fingerprinting
+[*] 3. ssh_weak_credentials - Tests SSH for weak or default credentials
+[*] 4. my_payload - A custom payload example</span>
+                </div>
+            </div>
+        </section>
+        
+        <section id="payloads" class="section">
+            <h2>Custom Payloads</h2>
+            
+            <p>NetHunter allows you to extend its functionality with custom Ruby payloads, stored in the <code>payloads/</code> directory.</p>
+            
+            <h3>Adding a Custom Payload</h3>
+            <ol>
+                <li>Create a Ruby file in <code>payloads/</code> (e.g., <code>my_payload.rb</code>).</li>
+                <li>Define a class matching the file name (e.g., <code>MyPayload</code> for <code>my_payload.rb</code>).</li>
+                <li>Implement the <code>run</code> method, which takes:
+                    <ul>
+                        <li><code>target</code>: The target IP or hostname.</li>
+                        <li><code>open_ports</code>: An array of open ports.</li>
+                        <li><code>options</code>: A hash of command-line options.</li>
+                    </ul>
+                </li>
+                <li>Add a <code># Description:</code> comment at the top.</li>
+            </ol>
+            
+            <h3>Payload Template</h3>
+            <pre><code># Description: A custom payload example
+class MyPayload
+  def run(target, open_ports, options)
+    puts "Running custom payload on #{target}"
+    results = { target: target, findings: [] }
+
+    if open_ports.include?(80)
+      results[:findings] << "Port 80 open, potential HTTP service."
+    end
+
+    if options[:verbose]
+      puts "Verbose: #{results[:findings].join(', ')}"
+    end
+
+    results
+  end
+end</code></pre>
+            
+            <h3>Using a Custom Payload</h3>
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-button terminal-close"></div>
+                    <div class="terminal-button terminal-minimize"></div>
+                    <div class="terminal-button terminal-maximize"></div>
+                </div>
+                <div class="terminal-body">
+<span class="prompt">user@kali:~/nethunter$</span> <span class="command">ruby nethunter.rb -t 192.168.1.1 --payload my_payload</span>
+<span class="output">[*] NetHunter v1.1.0 starting...
+[*] Target: 192.168.1.1
+[*] Loading payload: my_payload
+[*] Scanning default ports (21,22,23,25,53,80,110,135,139,143,443,445,993,995,1723,3306,3389,5900,8080)
+[+] Open port detected: 22 (SSH)
+[+] Open port detected: 80 (HTTP)
+[+] Open port detected: 443 (HTTPS)
+[*] Running custom payload on 192.168.1.1
+[*] Payload findings:
+[*] - Port 80 open, potential HTTP service.
+[*] Scan completed in 4.15 seconds
+[*] 3 open ports found
+[*] Results saved to output/192.168.1.1_payload_results.json</span>
+                </div>
+            </div>
+        </section>
+        
+        <section id="available-payloads" class="section">
+            <h2>Available Payloads</h2>
+            
+            <p>NetHunter version 1.1.0 includes several pre-built payloads to help you get started:</p>
+            
+            <h3>HTTP Vulnerability Scanner</h3>
+            <p>Scans for common HTTP vulnerabilities such as XSS, SQL injection, open directories, and misconfigured servers.</p>
+            <pre><code># Description: Scans for common HTTP vulnerabilities (XSS, SQLi, open directories)
+class HttpVulnerabilityScanner
+  def run(target, open_ports, options)
+    # Implementation details
+  end
+end</code></pre>
+            
+            <h3>Service Enumeration</h3>
+            <p>Performs advanced service enumeration and fingerprinting to identify service types, versions, and potential misconfigurations.</p>
+            <pre><code># Description: Performs advanced service enumeration and fingerprinting
+class ServiceEnumeration
+  def run(target, open_ports, options)
+    # Implementation details
+  end
+end</code></pre>
+            
+            <h3>SSH Weak Credentials</h3>
+            <p>Tests SSH servers for weak or default credentials using a built-in dictionary of common username/password combinations.</p>
+            <pre><code># Description: Tests SSH for weak or default credentials
+class SshWeakCredentials
+  def run(target, open_ports, options)
+    # Implementation details
+  end
+end</code></pre>
+            
+            <p>List all available payloads with:</p>
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-button terminal-close"></div>
+                    <div class="terminal-button terminal-minimize"></div>
+                    <div class="terminal-button terminal-maximize"></div>
+                </div>
+                <div class="terminal-body">
+<span class="prompt">user@kali:~/nethunter$</span> <span class="command">ruby nethunter.rb --list-payloads</span>
+                </div>
+            </div>
+        </section>
+        
+        <section id="security-notice" class="section">
+            <h2>Security Notice</h2>
+            
+            <div class="feature-card">
+                <h3>⚠️ Ethical Use Only</h3>
+                <p>NetHunter is designed for security professionals, network administrators, and ethical hackers to assess and improve network security. Always obtain proper authorization before scanning any network or system you don't own. Unauthorized scanning may be illegal and unethical.</p>
+            </div>
+            
+            <p>By using NetHunter, you agree to:</p>
+            <ul>
+                <li>Only scan systems you own or have explicit permission to test</li>
+                <li>Respect the privacy and security of others</li>
+                <li>Use the tool responsibly and ethically</li>
+                <li>Comply with all applicable laws and regulations</li>
+            </ul>
+        </section>
+        
+        <section id="contributing" class="section">
+            <h2>Contributing</h2>
+            
+            <p>Contributions to NetHunter are welcome! Here's how you can help improve the project:</p>
+            
+            <ul>
+                <li>Report bugs and suggest features by opening issues on GitHub</li>
+                <li>Submit pull requests with bug fixes or feature enhancements</li>
+                <li>Create new payloads and share them with the community</li>
+                <li>Improve documentation and provide usage examples</li>
+            </ul>
+            
+            <p>Please follow the coding style and guidelines in the repository.</p>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <p>NetHunter v1.1.0 | A Network Vulnerability Scanner</p>
+            <p>Created for security professionals and ethical hackers</p>
+            <p>&copy; 2025 NetHunter Team | <a href="https://github.com/yourusername/nethunter" style="color: var(--accent-color);">GitHub</a></p>
+        </div>
+    </footer>
+    
+    <a href="#" class="scroll-top" id="scrollTop">↑</a>
+    
+    <script>
+        // Scroll to top button
+        const scrollTopBtn = document.getElementById('scrollTop');
+        
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                scrollTopBtn.classList.add('show');
+            } else {
+                scrollTopBtn.classList.remove('show');
+            }
+        });
+        
+        scrollTopBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>

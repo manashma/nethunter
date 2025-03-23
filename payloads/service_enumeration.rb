@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 # Description: Advanced service enumeration and fingerprinting payload
+# Author: dorazombiiee
 
 class ServiceEnumeration
   def initialize

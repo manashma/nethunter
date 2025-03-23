@@ -169,3 +169,9 @@ NetHunter version 1.1.0 includes these pre-built payloads:
 List all payloads with:
 ```bash
 ruby nethunter.rb --list-payloads
+```
+### Support the Project
+If you find this project helpful and want to support its development, consider making a donation. Your contributions will help keep the project alive and improve it further.
+
+**Donate via PayPal:** [PayPal Donation Link](https://paypal.me/dorazombiieegetbook?country.x=IN&locale.x=en_GB)
+**Donate via Bitcoin:** bc1q9p4j857k49spf0tc97f32m3ukdy4g6n8mpqgs8
